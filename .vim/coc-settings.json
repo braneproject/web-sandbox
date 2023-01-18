@@ -1,0 +1,5 @@
+{
+  "eslint.enable": false,
+  "rome.enable": true,
+  "coc.preferences.formatOnSave": true
+}
