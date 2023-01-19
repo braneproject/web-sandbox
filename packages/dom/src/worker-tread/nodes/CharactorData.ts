@@ -36,5 +36,25 @@ export abstract class CharacterData extends Node implements
     return this.#data.length;
   }
 
+  substringData(offset: number, count: number): string {
+    return this.#data.substring(offset, offset + count);
+  }
+
+  appendData(data: string): void {
+    this.#data += data;
+  }
+
+  insertData(offset: number, data: string): void {
+    this.#data = this.#data.substring(0, offset) + data + this.#data.substring(offset);
+  }
+
+  deleteData(offset: number, count: number): void {
+    this.#data = this.#data.substring(0, offset) + this.#data.substring(offset + count);
+  }
+
+  replaceData(offset: number, count: number, data: string): void {
+    this.#data = this.#data.substring(0, offset) + data + this.#data.substring(offset + count);
+  }
+
   abstract cloneNode(): CharacterData;
 }

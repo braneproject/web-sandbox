@@ -2,7 +2,7 @@ import { PrivateConstructorSymbol } from '#shared/symbols.js';
 
 import { type Slottable } from '../minxins/Slottable.js';
 import { CharacterData } from './CharactorData.js';
-import { NodeType } from './Node.js';
+import { NodeName, NodeType } from './Node.js';
 
 /**
  * @see https://dom.spec.whatwg.org/#interface-text
@@ -11,8 +11,8 @@ import { NodeType } from './Node.js';
 export class Text extends CharacterData implements
   Slottable
 {
-  constructor(data = '') {
-    super(PrivateConstructorSymbol, data, NodeType.TEXT_NODE, '#text');
+  constructor(data = '', nodeType = NodeType.TEXT_NODE, nodeName: NodeName = '#text') {
+    super(PrivateConstructorSymbol, data, nodeType, nodeName);
   }
 
   splitText(offset: number): Text {
