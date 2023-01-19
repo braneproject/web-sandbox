@@ -106,6 +106,9 @@ const DOMExceptionNameCodeMap: Record<DOMExceptionName, DOMExceptionCode | undef
   NotAllowedError: DOMExceptionCode.NONE,
 };
 
+/**
+ * @see https://webidl.spec.whatwg.org/#idl-DOMException
+ */
 export class DOMException extends Error implements globalThis.DOMException {
   static get INDEX_SIZE_ERR() {
     return DOMExceptionCode.INDEX_SIZE_ERR;
