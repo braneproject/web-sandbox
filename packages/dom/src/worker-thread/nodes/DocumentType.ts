@@ -12,7 +12,12 @@ export class DocumentType extends Node {
   #publicId: string;
   #systemId: string;
 
-  constructor(_private: typeof PrivateConstructorSymbol, name = 'html', publicId = '', systemId = '') {
+  constructor(
+    _private: typeof PrivateConstructorSymbol,
+    name = 'html',
+    publicId = '',
+    systemId = '',
+  ) {
     super(_private, NodeType.DOCUMENT_TYPE_NODE, name);
 
     assertPrivateConstructor(_private);

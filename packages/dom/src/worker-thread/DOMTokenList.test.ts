@@ -54,18 +54,13 @@ describe('DOMTokenList', () => {
 
   test('indexable', () => {
     const classList = new DOMTokenList(PrivateConstructorSymbol);
-    // @ts-ignore
     expect(classList[0]).toBe(undefined);
-    // @ts-ignore
     expect(classList[1]).toBe(undefined);
 
-    // @ts-ignore
     classList[0] = 'test';
-    // @ts-ignore
     expect(classList[0]).toBe(undefined);
 
     classList.add('token1');
-    // @ts-ignore
     expect(classList[0]).toBe('token1');
   });
 });

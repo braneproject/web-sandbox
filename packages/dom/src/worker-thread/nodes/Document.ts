@@ -7,7 +7,11 @@ export class Document extends Node {
   static #implementation = new DOMImplementation(PrivateConstructorSymbol);
 
   constructor() {
-    super(PrivateConstructorSymbol, NodeType.DOCUMENT_NODE, '#document');
+    super(
+      PrivateConstructorSymbol,
+      NodeType.DOCUMENT_NODE,
+      '#document',
+    );
   }
 
   get implementation() {

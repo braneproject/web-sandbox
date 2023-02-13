@@ -13,7 +13,12 @@ export abstract class CharacterData extends Node implements
 {
   #data: string;
 
-  constructor(_private: typeof PrivateConstructorSymbol, data: string, nodeType: NodeType, nodeName: NodeName) {
+  constructor(
+    _private: typeof PrivateConstructorSymbol,
+    data: string,
+    nodeType: NodeType,
+    nodeName: NodeName,
+  ) {
     super(_private, nodeType, nodeName, null);
     assertPrivateConstructor(_private);
 

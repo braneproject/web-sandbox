@@ -11,7 +11,11 @@ import { NodeName, NodeType } from './Node.js';
 export class Text extends CharacterData implements
   Slottable
 {
-  constructor(data = '', nodeType = NodeType.TEXT_NODE, nodeName: NodeName = '#text') {
+  constructor(
+    data = '',
+    nodeType = NodeType.TEXT_NODE,
+    nodeName: NodeName = '#text',
+  ) {
     super(PrivateConstructorSymbol, data, nodeType, nodeName);
   }
 

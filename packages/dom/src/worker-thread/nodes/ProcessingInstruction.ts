@@ -7,8 +7,17 @@ import { NodeType } from './Node.js';
 export class ProcessingInstruction extends CharacterData {
   #target: string;
 
-  constructor(_private: typeof PrivateConstructorSymbol, target: string, data: string) {
-    super(_private, data, NodeType.PROCESSING_INSTRUCTION_NODE, target);
+  constructor(
+    _private: typeof PrivateConstructorSymbol,
+    target: string,
+    data: string,
+  ) {
+    super(
+      _private,
+      data,
+      NodeType.PROCESSING_INSTRUCTION_NODE,
+      target,
+    );
 
     assertPrivateConstructor(_private);
 

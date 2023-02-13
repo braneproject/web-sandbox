@@ -9,7 +9,12 @@ import { NodeType } from './Node.js';
  */
 export class Comment extends CharacterData {
   constructor(data: string) {
-    super(PrivateConstructorSymbol, data, NodeType.COMMENT_NODE, '#comment');
+    super(
+      PrivateConstructorSymbol,
+      data,
+      NodeType.COMMENT_NODE,
+      '#comment',
+    );
   }
 
   cloneNode(): Comment {

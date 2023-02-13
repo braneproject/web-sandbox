@@ -7,7 +7,11 @@ export abstract class Attr extends Node {
   #name: string;
   #value: string;
 
-  constructor(_private: typeof PrivateConstructorSymbol, name: string, value: string) {
+  constructor(
+    _private: typeof PrivateConstructorSymbol,
+    name: string,
+    value: string,
+  ) {
     super(_private, NodeType.ATTRIBUTE_NODE, name);
     assertPrivateConstructor(_private);
 

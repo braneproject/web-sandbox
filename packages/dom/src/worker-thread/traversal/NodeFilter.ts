@@ -3,7 +3,7 @@ import { Node } from '../nodes/Node.js';
 /**
  * @see https://dom.spec.whatwg.org/#interface-nodefilter
  */
-export const NodeFilter = new Proxy({
+export const NodeFilter = Object.freeze({
   FILTER_ACCEPT: 1,
   FILTER_REJECT: 2,
   FILTER_SKIP: 3,
@@ -21,10 +21,6 @@ export const NodeFilter = new Proxy({
   SHOW_DOCUMENT_TYPE: 0x200,
   SHOW_DOCUMENT_FRAGMENT: 0x400,
   SHOW_NOTATION: 0x800, // legacy
-}, {
-  set() {
-    return true;
-  }
 });
 
 export interface CallbackNodeFilter {
