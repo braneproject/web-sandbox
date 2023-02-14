@@ -1,4 +1,4 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { CharacterData } from './CharactorData.js';
@@ -8,7 +8,7 @@ export class ProcessingInstruction extends CharacterData {
   #target: string;
 
   constructor(
-    _private: typeof PrivateConstructorSymbol,
+    _private: typeof PrivateConstructor,
     target: string,
     data: string,
   ) {

@@ -1,4 +1,4 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 
 import { type Slottable } from '../minxins/Slottable.js';
 import { CharacterData } from './CharactorData.js';
@@ -16,7 +16,7 @@ export class Text extends CharacterData implements
     nodeType = NodeType.TEXT_NODE,
     nodeName: NodeName = '#text',
   ) {
-    super(PrivateConstructorSymbol, data, nodeType, nodeName);
+    super(PrivateConstructor, data, nodeType, nodeName);
   }
 
   splitText(offset: number): Text {

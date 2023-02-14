@@ -1,4 +1,4 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { Node, NodeType, NodeName } from './Node.js';
@@ -20,7 +20,7 @@ export abstract class Element extends Node implements
   #namedNodeMap: NamedNodeMap;
 
   constructor(
-    _private: typeof PrivateConstructorSymbol,
+    _private: typeof PrivateConstructor,
     nodeName: NodeName,
   ) {
     super(_private, NodeType.ELEMENT_NODE, nodeName);

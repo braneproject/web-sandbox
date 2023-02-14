@@ -1,4 +1,4 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { Node, NodeType } from './Node.js';
@@ -8,7 +8,7 @@ export abstract class Attr extends Node {
   #value: string;
 
   constructor(
-    _private: typeof PrivateConstructorSymbol,
+    _private: typeof PrivateConstructor,
     name: string,
     value: string,
   ) {

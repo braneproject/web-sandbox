@@ -1,4 +1,4 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { type NonDocumentTypeChildNode } from '../minxins/NonDocumentTypeChildNode.js';
@@ -14,7 +14,7 @@ export abstract class CharacterData extends Node implements
   #data: string;
 
   constructor(
-    _private: typeof PrivateConstructorSymbol,
+    _private: typeof PrivateConstructor,
     data: string,
     nodeType: NodeType,
     nodeName: NodeName,

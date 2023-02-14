@@ -1,5 +1,5 @@
 import { DOMException } from '#globals/DOMException.js';
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import * as symbols from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import {
@@ -8,28 +8,30 @@ import {
   replaceTokenInPlace,
 } from './IndexableTokenSet.js'
 
+const PrivateValidateToken = Symbol('PrivateValidateToken');
+
 /**
  * @see https://dom.spec.whatwg.org/#interface-domtokenlist
  * @see https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList
  */
 export class DOMTokenList implements IndexableTokenSet<string> {
-  _tokenSet = new Set<string>();
   [index: number]: string | undefined;
+  [symbols.IndexableTokenSet] = new Set<string>();
   [Symbol.iterator]() {
-    return this._tokenSet.values();
+    return this[symbols.IndexableTokenSet].values();
   }
 
-  constructor(_private: typeof PrivateConstructorSymbol) {
+  constructor(_private: typeof symbols.PrivateConstructor) {
     assertPrivateConstructor(_private);
     return createIndexableTarget(this);
   }
 
   get length() {
-    return this._tokenSet.size;
+    return this[symbols.IndexableTokenSet].size;
   }
 
   get value() {
-    return [...this._tokenSet.values()].join(' ');
+    return [...this[symbols.IndexableTokenSet].values()].join(' ');
   }
 
   toString() {
@@ -41,34 +43,25 @@ export class DOMTokenList implements IndexableTokenSet<string> {
   }
 
   contains(token: string): boolean {
-    return this._tokenSet.has(token);
-  }
-
-  _validateToken(token: string) {
-    if (token === '') {
-      throw new DOMException('The token provided must not be empty.', 'SyntaxError');
-    }
-    if (/[\t\n\f\r ]/.test(token)) {
-      throw new DOMException('The token provided must not contain HTML space characters, which are not valid in tokens.', 'InvalidCharacterError');
-    }
+    return this[symbols.IndexableTokenSet].has(token);
   }
 
   add(...tokens: string[]) {
     for (const token of tokens) {
-      this._validateToken(token);
-      this._tokenSet.add(token);
+      this[PrivateValidateToken](token);
+      this[symbols.IndexableTokenSet].add(token);
     }
   }
 
   remove(...tokens: string[]) {
     for (const token of tokens) {
-      this._validateToken(token);
-      this._tokenSet.delete(token);
+      this[PrivateValidateToken](token);
+      this[symbols.IndexableTokenSet].delete(token);
     }
   }
 
   toggle(token: string, force?: boolean): boolean {
-    this._validateToken(token);
+    this[PrivateValidateToken](token);
     if (this.contains(token)) {
       if (force === undefined || !force) {
         this.remove(token);
@@ -85,8 +78,8 @@ export class DOMTokenList implements IndexableTokenSet<string> {
   }
 
   replace(token: string, newToken: string): boolean {
-    this._validateToken(token);
-    this._validateToken(newToken);
+    this[PrivateValidateToken](token);
+    this[PrivateValidateToken](newToken);
     return replaceTokenInPlace(this, token, newToken);
   }
 
@@ -95,5 +88,14 @@ export class DOMTokenList implements IndexableTokenSet<string> {
     throw new TypeError(
       `Failed to execute '${token}' on 'DOMTokenList': DOMTokenList has no supported tokens.`,
     );
+  }
+
+  [PrivateValidateToken](token: string) {
+    if (token === '') {
+      throw new DOMException('The token provided must not be empty.', 'SyntaxError');
+    }
+    if (/[\t\n\f\r ]/.test(token)) {
+      throw new DOMException('The token provided must not contain HTML space characters, which are not valid in tokens.', 'InvalidCharacterError');
+    }
   }
 }

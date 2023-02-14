@@ -1,10 +1,10 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { type Element } from './nodes/Element.js';
 
 export class HTMLCollection extends Array<Element> {
-  constructor(_private: typeof PrivateConstructorSymbol) {
+  constructor(_private: typeof PrivateConstructor) {
     super();
     assertPrivateConstructor(_private);
   }

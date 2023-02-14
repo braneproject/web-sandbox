@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
 
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 
 import { DOMTokenList } from './DOMTokenList.js';
 
@@ -12,26 +12,26 @@ describe('DOMTokenList', () => {
   });
 
   test('it works', () => {
-    const classList = new DOMTokenList(PrivateConstructorSymbol);
+    const classList = new DOMTokenList(PrivateConstructor);
     expect(classList.length).toBe(0);
     expect(classList.value).toBe('');
   });
 
   test('add()', () => {
-    const classList = new DOMTokenList(PrivateConstructorSymbol);
+    const classList = new DOMTokenList(PrivateConstructor);
     classList.add('token1', 'token2', 'token3');
     expect(classList.value).toBe('token1 token2 token3');
   });
 
   test('remove()', () => {
-    const classList = new DOMTokenList(PrivateConstructorSymbol);
+    const classList = new DOMTokenList(PrivateConstructor);
     classList.add('token1', 'token2', 'token3');
     classList.remove('token2');
     expect(classList.value).toBe('token1 token3');
   });
 
   test('toggle()', () => {
-    const classList = new DOMTokenList(PrivateConstructorSymbol);
+    const classList = new DOMTokenList(PrivateConstructor);
     classList.add('token1', 'token2', 'token3');
 
     classList.toggle('token2');
@@ -42,7 +42,7 @@ describe('DOMTokenList', () => {
   });
 
   test('replace()', () => {
-    const classList = new DOMTokenList(PrivateConstructorSymbol);
+    const classList = new DOMTokenList(PrivateConstructor);
     classList.add('token1', 'token2', 'token3');
 
     const result = classList.replace('token2', 'token4');
@@ -53,7 +53,7 @@ describe('DOMTokenList', () => {
   });
 
   test('indexable', () => {
-    const classList = new DOMTokenList(PrivateConstructorSymbol);
+    const classList = new DOMTokenList(PrivateConstructor);
     expect(classList[0]).toBe(undefined);
     expect(classList[1]).toBe(undefined);
 

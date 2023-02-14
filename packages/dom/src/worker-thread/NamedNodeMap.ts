@@ -1,5 +1,5 @@
 import { DOMException } from '#globals/DOMException.js';
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import * as symbols from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { Attr } from './nodes/Attr.js';
@@ -10,29 +10,31 @@ import {
   replaceTokenInPlace,
 } from './IndexableTokenSet.js';
 
+const PrivateOwnerElement = Symbol('OwnerElement');
+const PrivateNameMap = Symbol('NameMap');
+
 export class NamedNodeMap implements IndexableTokenSet<Attr> {
-  _tokenSet = new Set<Attr>();
   [index: number]: Attr | undefined;
+  [symbols.IndexableTokenSet] = new Set<Attr>();
   [Symbol.iterator]() {
-    return this._tokenSet.values();
+    return this[symbols.IndexableTokenSet].values();
   }
 
-  _nameMap = new Map<string, Attr>();
-
-  #ownerElement: Element;
+  [PrivateOwnerElement]: Element;
+  [PrivateNameMap] = new Map<string, Attr>();
 
   constructor(
-    _private: typeof PrivateConstructorSymbol,
+    _private: typeof symbols.PrivateConstructor,
     ownerElement: Element,
   ) {
     assertPrivateConstructor(_private);
 
-    this.#ownerElement = ownerElement;
+    this[PrivateOwnerElement] = ownerElement;
 
     return new Proxy(createIndexableTarget(this), {
       get(target, prop) {
         if (typeof prop === 'string' && !(prop in target)) {
-          return target._nameMap.get(prop);
+          return target[PrivateNameMap].get(prop);
         }
         return target[prop as keyof typeof target];
       },
@@ -48,7 +50,7 @@ export class NamedNodeMap implements IndexableTokenSet<Attr> {
   }
 
   get length() {
-    return this._tokenSet.size;
+    return this[symbols.IndexableTokenSet].size;
   }
 
   item(index: number): Attr | null {
@@ -56,7 +58,7 @@ export class NamedNodeMap implements IndexableTokenSet<Attr> {
   }
 
   getNamedItem(qualifiedName: string): Attr | null {
-    return this._nameMap.get(qualifiedName) ?? null;
+    return this[PrivateNameMap].get(qualifiedName) ?? null;
   }
 
   setNamedItem(attr: Attr): Attr | null {
@@ -78,7 +80,7 @@ export class NamedNodeMap implements IndexableTokenSet<Attr> {
     // 4. If oldAttr is non-null, then replace oldAttr with attr.
     if (oldAttr) {
       replaceTokenInPlace(this, oldAttr, attr);
-      this._nameMap.set(oldAttr.name, attr);
+      this[PrivateNameMap].set(oldAttr.name, attr);
     }
     // 5. Otherwise, append attr to element.
     else {

@@ -1,5 +1,5 @@
 import { EventTarget } from '#globals/EventTarget.js';
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 import { type UnionString } from '#shared/utils.js'
 
@@ -76,7 +76,7 @@ export abstract class Node extends EventTarget {
   #isConnected = false;
 
   constructor(
-    _private: typeof PrivateConstructorSymbol,
+    _private: typeof PrivateConstructor,
     nodeType: NodeType,
     nodeName: NodeName,
     ownerDocument: Document | null = null,

@@ -1,14 +1,14 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 
 import { DOMImplementation } from '../DOMImplementation.js';
 import { Node, NodeType } from './Node.js';
 
 export class Document extends Node {
-  static #implementation = new DOMImplementation(PrivateConstructorSymbol);
+  static #implementation = new DOMImplementation(PrivateConstructor);
 
   constructor() {
     super(
-      PrivateConstructorSymbol,
+      PrivateConstructor,
       NodeType.DOCUMENT_NODE,
       '#document',
     );

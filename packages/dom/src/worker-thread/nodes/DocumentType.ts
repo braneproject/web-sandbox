@@ -1,4 +1,4 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { Node, NodeType } from './Node.js';
@@ -13,7 +13,7 @@ export class DocumentType extends Node {
   #systemId: string;
 
   constructor(
-    _private: typeof PrivateConstructorSymbol,
+    _private: typeof PrivateConstructor,
     name = 'html',
     publicId = '',
     systemId = '',
@@ -40,6 +40,6 @@ export class DocumentType extends Node {
   }
 
   cloneNode(): DocumentType {
-    return new DocumentType(PrivateConstructorSymbol, this.name, this.publicId, this.systemId);
+    return new DocumentType(PrivateConstructor, this.name, this.publicId, this.systemId);
   }
 }

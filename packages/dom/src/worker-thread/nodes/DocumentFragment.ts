@@ -1,11 +1,11 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 
 import { Node, NodeType } from './Node.js';
 
 export class DocumentFragment extends Node {
   constructor() {
     super(
-      PrivateConstructorSymbol,
+      PrivateConstructor,
       NodeType.DOCUMENT_FRAGMENT_NODE,
       '#document-fragment',
     );

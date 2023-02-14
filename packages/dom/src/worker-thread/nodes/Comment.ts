@@ -1,4 +1,4 @@
-import { PrivateConstructorSymbol } from '#shared/symbols.js';
+import { PrivateConstructor } from '#shared/symbols.js';
 
 import { CharacterData } from './CharactorData.js';
 import { NodeType } from './Node.js';
@@ -10,7 +10,7 @@ import { NodeType } from './Node.js';
 export class Comment extends CharacterData {
   constructor(data: string) {
     super(
-      PrivateConstructorSymbol,
+      PrivateConstructor,
       data,
       NodeType.COMMENT_NODE,
       '#comment',
