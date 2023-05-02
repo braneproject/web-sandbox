@@ -1,5 +1,5 @@
 import { DOMException } from '#globals/DOMException.js';
-import * as symbols from '#shared/symbols.js';
+import * as SharedSymbol from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import { Attr } from './nodes/Attr.js';
@@ -15,16 +15,16 @@ const PrivateNameMap = Symbol('NameMap');
 
 export class NamedNodeMap implements IndexableTokenSet<Attr> {
   [index: number]: Attr | undefined;
-  [symbols.IndexableTokenSet] = new Set<Attr>();
+  [SharedSymbol.IndexableTokenSet] = new Set<Attr>();
   [Symbol.iterator]() {
-    return this[symbols.IndexableTokenSet].values();
+    return this[SharedSymbol.IndexableTokenSet].values();
   }
 
   [PrivateOwnerElement]: Element;
   [PrivateNameMap] = new Map<string, Attr>();
 
   constructor(
-    _private: typeof symbols.PrivateConstructor,
+    _private: typeof SharedSymbol.PrivateConstructor,
     ownerElement: Element,
   ) {
     assertPrivateConstructor(_private);
@@ -50,7 +50,7 @@ export class NamedNodeMap implements IndexableTokenSet<Attr> {
   }
 
   get length() {
-    return this[symbols.IndexableTokenSet].size;
+    return this[SharedSymbol.IndexableTokenSet].size;
   }
 
   item(index: number): Attr | null {

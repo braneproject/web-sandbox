@@ -1,5 +1,5 @@
 import { DOMException } from '#globals/DOMException.js';
-import * as symbols from '#shared/symbols.js';
+import * as SharedSymbol from '#shared/symbols.js';
 import { assertPrivateConstructor } from '#shared/internal.js';
 
 import {
@@ -16,22 +16,22 @@ const PrivateValidateToken = Symbol('PrivateValidateToken');
  */
 export class DOMTokenList implements IndexableTokenSet<string> {
   [index: number]: string | undefined;
-  [symbols.IndexableTokenSet] = new Set<string>();
+  [SharedSymbol.IndexableTokenSet] = new Set<string>();
   [Symbol.iterator]() {
-    return this[symbols.IndexableTokenSet].values();
+    return this[SharedSymbol.IndexableTokenSet].values();
   }
 
-  constructor(_private: typeof symbols.PrivateConstructor) {
+  constructor(_private: typeof SharedSymbol.PrivateConstructor) {
     assertPrivateConstructor(_private);
     return createIndexableTarget(this);
   }
 
   get length() {
-    return this[symbols.IndexableTokenSet].size;
+    return this[SharedSymbol.IndexableTokenSet].size;
   }
 
   get value() {
-    return [...this[symbols.IndexableTokenSet].values()].join(' ');
+    return [...this[SharedSymbol.IndexableTokenSet].values()].join(' ');
   }
 
   toString() {
@@ -43,20 +43,20 @@ export class DOMTokenList implements IndexableTokenSet<string> {
   }
 
   contains(token: string): boolean {
-    return this[symbols.IndexableTokenSet].has(token);
+    return this[SharedSymbol.IndexableTokenSet].has(token);
   }
 
   add(...tokens: string[]) {
     for (const token of tokens) {
       this[PrivateValidateToken](token);
-      this[symbols.IndexableTokenSet].add(token);
+      this[SharedSymbol.IndexableTokenSet].add(token);
     }
   }
 
   remove(...tokens: string[]) {
     for (const token of tokens) {
       this[PrivateValidateToken](token);
-      this[symbols.IndexableTokenSet].delete(token);
+      this[SharedSymbol.IndexableTokenSet].delete(token);
     }
   }
 
